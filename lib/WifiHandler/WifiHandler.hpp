@@ -1,8 +1,7 @@
 #ifndef __WIFI_HANDLER_H__
 #define __WIFI_HANDLER_H__
 
-class WifiHandler
-{
+class WifiHandler {
 private:
   unsigned long connectTimestamp;
   unsigned long connectCounter;

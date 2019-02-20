@@ -10,13 +10,11 @@ AppConfig appcfg;
 Ticker appTicker;
 volatile unsigned long secCounter;
 
-void appTickerCallback()
-{
+void appTickerCallback() {
   secCounter++;
 }
 
-App::App()
-{
+App::App() {
   initialized = true;
   doSystemRestart = false;
   secCounter = 0;
@@ -51,8 +49,7 @@ App::App()
   strncpy( appcfg.ntp_host, DEFAULT_NTP_HOST, 63 );
 }
 
-void App::restartSystem()
-{
+void App::restartSystem() {
   displayHandler.showResetSystem();
   // watchdogTicker.detach();
   ESP.eraseConfig();
@@ -63,8 +60,7 @@ void App::restartSystem()
   ESP.reset();
 }
 
-void App::setup()
-{
+void App::setup() {
   Serial.begin(115200);
 
   doSystemRestart = false;
@@ -119,61 +115,43 @@ void App::setup()
 }
 
 
-void App::loadConfig()
-{
-  if (!SPIFFS.begin())
-  {
+void App::loadConfig() {
+  if (!SPIFFS.begin()) {
     LOG0("ERROR: Failed to mount file system");
-  }
-  else
-  {
-    if( SPIFFS.exists(APP_CONFIG_FILE))
-    {
+  } else {
+    if( SPIFFS.exists(APP_CONFIG_FILE)) {
       displayHandler.showMessage("Loading\nConfig");
       File configFile = SPIFFS.open( APP_CONFIG_FILE, "r");
 
-      if (!configFile)
-      {
+      if (!configFile) {
         LOG1("ERROR: file %s not found.\n", APP_CONFIG_FILE );
-      }
-      else
-      {
+      } else {
         LOG1("Loading appcfguration from %s file...\n", APP_CONFIG_FILE );
 
-        if( configFile.size() != sizeof( appcfg ))
-        {
+        if( configFile.size() != sizeof( appcfg )) {
           Serial.printf( "ERROR: %s file size not match appcfg structure %d != %d bytes.\n", APP_CONFIG_FILE, configFile.size(), sizeof( appcfg ));
-        }
-        else
-        {
+        } else {
           int bytesRead = configFile.readBytes((char *)&appcfg, sizeof( appcfg ));
           LOG1( "%d bytes read from appcfg file.\n", bytesRead );
           configFile.close();
         }
       }
-    }
-    else
-    {
+    } else {
       LOG0( "WARNING: appcfg file " APP_CONFIG_FILE " does not exist. Using default appcfg.\n" );
     }
     SPIFFS.end();
   }
 }
 
-void App::writeConfig()
-{
-  if (!SPIFFS.begin())
-  {
+void App::writeConfig() {
+  if (!SPIFFS.begin()) {
     LOG0("ERROR: Failed to mount file system");
-  }
-  else
-  {
+  } else {
     LOG1("writing file %s.\n", APP_CONFIG_FILE );
 
     File configFile = SPIFFS.open( APP_CONFIG_FILE, "w");
 
-    if (!configFile)
-    {
+    if (!configFile) {
       LOG1("ERROR: Failed to open appcfg file %s for writing.\n", APP_CONFIG_FILE );
       return;
     }
@@ -197,8 +175,7 @@ void App::writeConfig()
   }
 }
 
-void App::printConfig()
-{
+void App::printConfig() {
   Serial.println();
   Serial.println( "--- App appcfguration -----------------------------------" );
   Serial.println( "  Security:" );
@@ -235,24 +212,20 @@ void App::printConfig()
   Serial.println();
 }
 
-void App::delayedSystemRestart()
-{
+void App::delayedSystemRestart() {
   doSystemRestart = true;
   systemRestartTimestamp = millis();
   LOG0("*** delayedSystemRestart ***\n");
 }
 
-void App::handle()
-{
-  if( doSystemRestart && ( millis() - systemRestartTimestamp ) > 5000l )
-  {
+void App::handle() {
+  if( doSystemRestart && ( millis() - systemRestartTimestamp ) > 5000l ) {
     LOG0("*** doSystemRestart ***\n");
     writeConfig();
     restartSystem();
   }
 }
 
-unsigned long App::secTimestamp()
-{
+unsigned long App::secTimestamp() {
   return secCounter;
 }

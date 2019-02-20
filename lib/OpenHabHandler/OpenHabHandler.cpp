@@ -2,7 +2,7 @@
 #include <App.hpp>
 #include <WifiHandler.hpp>
 #include <ESP8266HTTPClient.h>
-#include <SHT3xHandler.hpp>
+//#include <SHT3xHandler.hpp>
 #include "OpenHabHandler.hpp"
 
 OpenHabHandler openHabHandler;
@@ -106,10 +106,12 @@ void OpenHabHandler::sendValue( const char* itemName, float value )
 
 void OpenHabHandler::handle(time_t timestamp)
 {
+  /*
   if ( sht3xHandler.avgValuesAvailable && ( timestamp - intervalTimestamp ) >= 120000 )
   {
     intervalTimestamp = timestamp;
     sendValue( appcfg.ohab_itemname_temp, sht3xHandler.avgCTemp );
     sendValue( appcfg.ohab_itemname_humi, sht3xHandler.avgHumidity );
   }
+  */
 }

@@ -6,15 +6,14 @@
 #include <ESPAsyncWebServer.h>
 #include <WifiHandler.hpp>
 #include <LocalTimeHandler.hpp>
-#include <SHT3xHandler.hpp>
+//#include <SHT3xHandler.hpp>
 
 #include "WebHandler.hpp"
 #include "WebHandlerPrivate.hpp"
 
 #include <time.h>
 
-static String jsonStatus( String addon )
-{
+static String jsonStatus( String addon ) {
   String message = "{";
   message += addon;
 
@@ -29,7 +28,7 @@ static String jsonStatus( String addon )
 
   message += ",\"buildDate\":";
   message += "\"" __DATE__ "\"";
-  
+
   message += ",\"buildTime\":";
   message += "\"" __TIME__ "\"";
 
@@ -65,8 +64,7 @@ static String jsonStatus( String addon )
   return message;
 }
 
-static String jsonTime()
-{
+static String jsonTime() {
   time_t now = 0;
   time(&now);
 
@@ -84,10 +82,9 @@ static String jsonTime()
   return message;
 }
 
-static String jsonSensor()
-{
+static String jsonSensor() {
   String message = "{";
-
+/*
   message += "\"temperature\":";
   message += sht3xHandler.cTemp;
 
@@ -105,29 +102,25 @@ static String jsonSensor()
 
   message += ",\"avgCounter\":";
   message += sht3xHandler.avgCounter;
-
+*/
   message += "}\r\n";
   return message;
 }
 
-void setupRestApi( AsyncWebServer& server )
-{
-  server.on("/state", HTTP_GET, [](AsyncWebServerRequest *request)
-  {
+void setupRestApi( AsyncWebServer& server ) {
+  server.on("/state", HTTP_GET, [](AsyncWebServerRequest *request) {
     AsyncWebServerResponse *response = request->beginResponse(200, "application/json", jsonStatus("") );
     response->addHeader( "Access-Control-Allow-Origin", "*" );
     response->addHeader("Cache-Control", "no-cache");
     request->send(response);
   });
-  server.on("/time", HTTP_GET, [](AsyncWebServerRequest *request)
-  {
+  server.on("/time", HTTP_GET, [](AsyncWebServerRequest *request) {
     AsyncWebServerResponse *response = request->beginResponse(200, "application/json", jsonTime() );
     response->addHeader( "Access-Control-Allow-Origin", "*" );
     response->addHeader("Cache-Control", "no-cache");
     request->send(response);
   });
-  server.on("/sensor", HTTP_GET, [](AsyncWebServerRequest *request)
-  {
+  server.on("/sensor", HTTP_GET, [](AsyncWebServerRequest *request) {
     AsyncWebServerResponse *response = request->beginResponse(200, "application/json", jsonSensor() );
     response->addHeader( "Access-Control-Allow-Origin", "*" );
     response->addHeader("Cache-Control", "no-cache");

@@ -13,23 +13,20 @@ static char currentSSID[64];
 static char currentPass[64];
 static int currentMode;
 
-static void copyWifiCredentials()
-{
+static void copyWifiCredentials() {
   strncpy( currentSSID, appcfg.wifi_ssid, 63 );
   strncpy( currentPass, appcfg.wifi_password, 63 );
   currentMode = appcfg.wifi_mode;
 }
 
-static void wifiOff()
-{
+static void wifiOff() {
   WiFi.persistent(false);
   WiFi.mode(WIFI_OFF);
   WiFi.setOutputPower(0.0f);
   WiFi.hostname(appcfg.ota_hostname);
 }
 
-static void wifiInitStationMode()
-{
+static void wifiInitStationMode() {
   LOG0("Starting Wifi in Station Mode");
   copyWifiCredentials();
   WiFi.begin();
@@ -39,8 +36,7 @@ static void wifiInitStationMode()
   WiFi.setAutoReconnect(true);
 }
 
-void WifiHandler::setup()
-{
+void WifiHandler::setup() {
   LOG0("WiFi Setup started...\n");
   copyWifiCredentials();
 
@@ -55,12 +51,9 @@ void WifiHandler::setup()
 
   wifiOff();
 
-  if ( isInStationMode() )
-  {
+  if ( isInStationMode() ) {
     wifiInitStationMode();
-  }
-  else
-  {
+  } else {
     LOG0("Starting Wifi Access Point Mode\n");
 
     char buffer[64];
@@ -88,21 +81,15 @@ void WifiHandler::setup()
   }
 }
 
-const bool WifiHandler::handle( time_t timestamp )
-{
-  if ( abs(timestamp - lastTimestamp) >= 500 && isInStationMode())
-  {
+const bool WifiHandler::handle( time_t timestamp ) {
+  if ( abs(timestamp - lastTimestamp) >= 500 && isInStationMode()) {
     lastTimestamp = timestamp;
     int status = WiFi.status();
 
-    if ( connected )
-    {
-      if ( status == WL_CONNECTED )
-      {
+    if ( connected ) {
+      if ( status == WL_CONNECTED ) {
         return true;
-      }
-      else
-      {
+      } else {
         LOG0( "WARNING: WiFi connection lost!\n" );
 
         wifiOff();
@@ -110,11 +97,8 @@ const bool WifiHandler::handle( time_t timestamp )
 
         connected = false;
       }
-    }
-    else
-    {
-      if ( status == WL_CONNECTED )
-      {
+    } else {
+      if ( status == WL_CONNECTED ) {
         Serial.println("\n");
         Serial.printf("WiFi connected to \"%s\"\n", currentSSID );
 
@@ -130,9 +114,7 @@ const bool WifiHandler::handle( time_t timestamp )
         connected = true;
         connectCounter++;
         connectTimestamp = app.secTimestamp();
-      }
-      else
-      {
+      } else {
         displayHandler.showWifiConnecting();
         Serial.print( "." );
       }
@@ -141,42 +123,34 @@ const bool WifiHandler::handle( time_t timestamp )
   return connected;
 }
 
-const bool WifiHandler::isInStationMode()
-{
+const bool WifiHandler::isInStationMode() {
   return ( currentMode == WIFI_STA );
 }
 
-const bool WifiHandler::isConnected()
-{
+const bool WifiHandler::isConnected() {
   return connected;
 }
 
-const bool WifiHandler::isReady()
-{
+const bool WifiHandler::isReady() {
   return isConnected() && isInStationMode();
 }
 
-const char* WifiHandler::scanNetworks()
-{
+const char* WifiHandler::scanNetworks() {
   networkBuffer[0] = 0;
   displayHandler.showMessage("Scanning\nWiFi\nnetworks");
   Serial.println( "\nScanning WiFi networks...");
   int n = WiFi.scanNetworks(false, false);
   Serial.println( "done.");
 
-  if (n == 0)
-  {
+  if (n == 0) {
     Serial.println("no networks found");
     strcpy( networkBuffer, "no networks found" );
-  }
-  else
-  {
+  } else {
     Serial.print(n);
     Serial.println(" networks found");
     int l = 0;
 
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
       l += sprintf( networkBuffer+l, "%2d: %s (%d)%s\n", i+1,
                     WiFi.SSID(i).c_str(), WiFi.RSSI(i),
                     (WiFi.encryptionType(i) == ENC_TYPE_NONE) ? " " : "*");
@@ -191,17 +165,14 @@ const char* WifiHandler::scanNetworks()
   return networkBuffer;
 }
 
-const char* WifiHandler::getScannedNetworks()
-{
+const char* WifiHandler::getScannedNetworks() {
   return networkBuffer;
 }
 
-unsigned long WifiHandler::getConnectCounter()
-{
+unsigned long WifiHandler::getConnectCounter() {
   return connectCounter;
 }
 
-unsigned long WifiHandler::getConnectTimestamp()
-{
+unsigned long WifiHandler::getConnectTimestamp() {
   return connectTimestamp;
 }

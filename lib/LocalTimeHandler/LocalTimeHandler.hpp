@@ -1,8 +1,7 @@
 #ifndef __LOCAL_TIME_HANDLER_H__
 #define __LOCAL_TIME_HANDLER_H__
 
-class LocalTimeHandler
-{
+class LocalTimeHandler {
 private:
   char timeBuffer[64];
   bool initialized;

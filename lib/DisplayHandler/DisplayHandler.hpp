@@ -5,8 +5,7 @@
 
 #define DISPLAY_UPDATE_INTERVAL 1000l
 
-class DisplayHandler
-{
+class DisplayHandler {
 private:
   bool initialized;
   uint8_t i2cAddress;

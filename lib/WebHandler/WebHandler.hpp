@@ -1,8 +1,7 @@
 #ifndef __WEB_HANDLER_HPP__
 #define __WEB_HANDLER_HPP__
 
-class WebHandler
-{
+class WebHandler {
 private:
   bool initialized;
   void setup();

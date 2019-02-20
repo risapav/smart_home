@@ -9,10 +9,8 @@
 #include "layout-css-gz.h"
 #include "template-html.h"
 
-void handleSetupPage( AsyncWebServerRequest *request )
-{
-  if(!request->authenticate("admin", appcfg.admin_password))
-  {
+void handleSetupPage( AsyncWebServerRequest *request ) {
+  if(!request->authenticate("admin", appcfg.admin_password)) {
     return request->requestAuthentication();
   }
 
@@ -88,8 +86,7 @@ void handleSetupPage( AsyncWebServerRequest *request )
 }
 
 
-void handleSavePage( AsyncWebServerRequest *request )
-{
+void handleSavePage( AsyncWebServerRequest *request ) {
   if(!request->authenticate("admin", appcfg.admin_password))
   {
     return request->requestAuthentication();
@@ -101,8 +98,7 @@ void handleSavePage( AsyncWebServerRequest *request )
 
   int params = request->params();
 
-  for(int i=0; i<params; i++)
-  {
+  for(int i=0; i<params; i++) {
     AsyncWebParameter* p = request->getParam(i);
     printer.printf("%s = '%s'\n", p->name().c_str(), p->value().c_str());
   }

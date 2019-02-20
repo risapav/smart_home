@@ -22,8 +22,7 @@ static time_t localTime;
 
 LocalTimeHandler localTimeHandler;
 
-void printLocalTime()
-{
+void printLocalTime() {
   time_t now = 0;
   time(&now);
   localTime = CE.toLocal( now, &tcr );
@@ -33,22 +32,18 @@ void printLocalTime()
                  tcr->abbrev );
 }
 
-LocalTimeHandler::LocalTimeHandler()
-{
+LocalTimeHandler::LocalTimeHandler() {
   initialized = false;
 }
 
-void LocalTimeHandler::handle()
-{
-  if ( !initialized && wifiHandler.isInStationMode() )
-  {
+void LocalTimeHandler::handle() {
+  if ( !initialized && wifiHandler.isInStationMode() ) {
     LOG0("Local Time Handler Setup...\n");
 
     time_t now = 0;
     configTime( 0, 0, appcfg.ntp_host );
     LOG0( "Wait for NTP sync " );
-    while(!now)
-    {
+    while(!now) {
       time(&now);
       Serial.print(".");
       delay(100);
@@ -62,16 +57,14 @@ void LocalTimeHandler::handle()
   }
 }
 
-time_t LocalTimeHandler::getLocalTime()
-{
+time_t LocalTimeHandler::getLocalTime() {
   time_t now = 0;
   time(&now);
   localTime = CE.toLocal( now, &tcr );
   return localTime;
 }
 
-char *LocalTimeHandler::getLocalTimeText()
-{
+char *LocalTimeHandler::getLocalTimeText() {
   getLocalTime();
   sprintf( timeBuffer, "%04d-%02d-%02d %02d:%02d:%02d %s",
                  year(localTime), month(localTime), day(localTime),

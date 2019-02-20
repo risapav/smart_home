@@ -6,13 +6,12 @@
 #define LOG0( format ) Serial.printf( "(%ld) " format, millis())
 #define LOG1( format, x) Serial.printf( "(%ld) " format, millis(), x )
 
-#define APP_NAME "WiFi SHT30"
+#define APP_NAME "WiFi WemosMega R3"
 #define APP_VERSION "1.0.0"
-#define APP_AUTHOR "Dr. Thorsten Ludewig <t.ludewig@gmail.com>"
+#define APP_AUTHOR "Peter Risa"
 #define APP_CONFIG_FILE "/config.bin"
 
-typedef struct appconfig
-{
+typedef struct appconfig {
   char wifi_ssid[64];
   char wifi_password[64];
   int  wifi_mode;
@@ -45,8 +44,7 @@ typedef struct appconfig
 
 } AppConfig;
 
-class App
-{
+class App {
 private:
   bool initialized = false;
   bool doSystemRestart = false;

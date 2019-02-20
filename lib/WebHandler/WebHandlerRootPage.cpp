@@ -1,13 +1,12 @@
 #include <App.hpp>
 #include <DefaultAppConfig.h>
-#include <SHT3xHandler.hpp>
+//#include <SHT3xHandler.hpp>
 #include <LocalTimeHandler.hpp>
 #include <BufferedPrinter.hpp>
 #include "WebHandlerPrivate.hpp"
 #include "template-html.h"
 
-void handleRootPage( AsyncWebServerRequest *request )
-{
+void handleRootPage( AsyncWebServerRequest *request ) {
   char titleBuffer[100];
   sprintf( titleBuffer, APP_NAME " - %s", appcfg.ota_hostname );
   printer.reset();
@@ -19,7 +18,7 @@ void handleRootPage( AsyncWebServerRequest *request )
   int rid=0;
 
   char valueBuffer[32];
-
+/*
   sprintf( valueBuffer, "%0.2f°C", sht3xHandler.cTemp );
   prTextGroupReadOnly( rid++, "Temperature", valueBuffer );
   sprintf( valueBuffer, "%0.2f%%", sht3xHandler.humidity );
@@ -28,7 +27,7 @@ void handleRootPage( AsyncWebServerRequest *request )
   prTextGroupReadOnly( rid++, "Avg Temperature", valueBuffer );
   sprintf( valueBuffer, "%0.2f%%", sht3xHandler.avgHumidity );
   prTextGroupReadOnly( rid++, "Avg Humidity", valueBuffer );
-
+*/
   prLegend( "NTP");
   prTextGroupReadOnly( rid++, "Local Time", localTimeHandler.getLocalTimeText() );
 

@@ -3,8 +3,7 @@
 
 #include <Arduino.h>
 
-class MqttHandler
-{
+class MqttHandler {
 private:
   bool initialized;
   bool reconnect();
