@@ -7,7 +7,7 @@
 #define DEFAULT_WIFI_PASSWORD "123456"
 #define DEFAULT_WIFI_MODE WIFI_AP
 
-#define DEFAULT_OTA_HOSTNAME "wemos_r3"
+#define DEFAULT_OTA_HOSTNAME "wemos_ota"
 #define DEFAULT_OTA_PASSWORD "otapass"
 
 #define DEFAULT_ADMIN_PASSWORD "admin"

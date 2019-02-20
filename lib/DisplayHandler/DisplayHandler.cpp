@@ -94,7 +94,7 @@ void DisplayHandler::showBooting() {
   //display.drawString( 0, 10, "V." APP_VERSION );
   //display.drawString( 0, 20, APP_AUTHOR );
   //display.display();
-  Serial.println("boot system");
+  Serial.println("...booting system...");
   Serial.println("V." APP_VERSION );
   Serial.println( APP_AUTHOR );
 }
