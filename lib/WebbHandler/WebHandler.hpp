@@ -6,8 +6,6 @@ private:
   bool initialized;
   void setup();
 
-//
-  bool loadFromSpiffs(String path){};
 public:
   WebHandler();
 

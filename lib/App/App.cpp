@@ -19,34 +19,34 @@ App::App() {
   doSystemRestart = false;
   secCounter = 0;
 
-  strncpy( appcfg.wifi_ssid, DEFAULT_WIFI_SSID, 63 );
-  strncpy( appcfg.wifi_password, DEFAULT_WIFI_PASSWORD, 63 );
+  strncpy( appcfg.wifi_ssid, DEFAULT_WIFI_SSID, sizeof(appcfg.wifi_ssid) );
+  strncpy( appcfg.wifi_password, DEFAULT_WIFI_PASSWORD, sizeof(appcfg.wifi_password) );
   appcfg.wifi_mode = DEFAULT_WIFI_MODE;
 
-  strncpy( appcfg.ota_hostname, DEFAULT_OTA_HOSTNAME, 63 );
-  strncpy( appcfg.ota_password, DEFAULT_OTA_PASSWORD, 63 );
+  strncpy( appcfg.ota_hostname, DEFAULT_OTA_HOSTNAME, sizeof(appcfg.ota_hostname) );
+  strncpy( appcfg.ota_password, DEFAULT_OTA_PASSWORD, sizeof(appcfg.ota_password) );
 
-  strncpy( appcfg.admin_password, DEFAULT_ADMIN_PASSWORD, 63 );
+  strncpy( appcfg.admin_password, DEFAULT_ADMIN_PASSWORD, sizeof(appcfg.admin_password) );
 
   appcfg.ohab_enabled = DEFAULT_OHAB_ENABLED;
   appcfg.ohab_version = DEFAULT_OHAB_VERSION;
-  strncpy( appcfg.ohab_host, DEFAULT_OHAB_HOST, 63 );
+  strncpy( appcfg.ohab_host, DEFAULT_OHAB_HOST, sizeof(appcfg.ohab_host) );
   appcfg.ohab_port = DEFAULT_OHAB_PORT;
   appcfg.ohab_useauth = DEFAULT_OHAB_USEAUTH;
-  strncpy( appcfg.ohab_user, DEFAULT_OHAB_USER, 63 );
-  strncpy( appcfg.ohab_password, DEFAULT_OHAB_PASSWORD, 63 );
-  strncpy( appcfg.ohab_itemname_temp, DEFAULT_OHAB_ITEMNAME_TEMP, 63 );
-  strncpy( appcfg.ohab_itemname_humi, DEFAULT_OHAB_ITEMNAME_HUMI, 63 );
+  strncpy( appcfg.ohab_user, DEFAULT_OHAB_USER, sizeof(appcfg.ohab_user) );
+  strncpy( appcfg.ohab_password, DEFAULT_OHAB_PASSWORD, sizeof(appcfg.ohab_password) );
+  strncpy( appcfg.ohab_itemname_temp, DEFAULT_OHAB_ITEMNAME_TEMP, sizeof(appcfg.ohab_itemname_temp) );
+  strncpy( appcfg.ohab_itemname_humi, DEFAULT_OHAB_ITEMNAME_HUMI, sizeof(appcfg.ohab_itemname_humi) );
 
   appcfg.mqtt_enabled = DEFAULT_MQTT_ENABLED;
-  strncpy( appcfg.mqtt_clientid, DEFAULT_MQTT_CLIENTID, 63 );
-  strncpy( appcfg.mqtt_host, DEFAULT_MQTT_HOST, 63 );
+  strncpy( appcfg.mqtt_clientid, DEFAULT_MQTT_CLIENTID, sizeof(appcfg.mqtt_clientid) );
+  strncpy( appcfg.mqtt_host, DEFAULT_MQTT_HOST, sizeof(appcfg.mqtt_host) );
   appcfg.mqtt_port = DEFAULT_MQTT_PORT;
   appcfg.mqtt_useauth = DEFAULT_MQTT_USEAUTH;
-  strncpy( appcfg.mqtt_user, DEFAULT_MQTT_USER, 63 );
-  strncpy( appcfg.mqtt_password, DEFAULT_MQTT_PASSWORD, 63 );
-  strncpy( appcfg.mqtt_topic_out, DEFAULT_MQTT_TOPIC_OUT, 63 );
-  strncpy( appcfg.ntp_host, DEFAULT_NTP_HOST, 63 );
+  strncpy( appcfg.mqtt_user, DEFAULT_MQTT_USER, sizeof(appcfg.mqtt_user) );
+  strncpy( appcfg.mqtt_password, DEFAULT_MQTT_PASSWORD, sizeof(appcfg.mqtt_password) );
+  strncpy( appcfg.mqtt_topic_out, DEFAULT_MQTT_TOPIC_OUT, sizeof(appcfg.mqtt_topic_out) );
+  strncpy( appcfg.ntp_host, DEFAULT_NTP_HOST, sizeof(appcfg.ntp_host) );
 }
 
 void App::restartSystem() {

@@ -1,6 +1,11 @@
 #ifndef __OPENHAB_HANDLER_H__
 #define __OPENHAB_HANDLER_H__
 
+// https://www.openhab.org/
+// The open Home Automation Bus (openHAB, pronounced ˈəʊpənˈhæb)
+// is an open source, technology agnostic home automation platform
+// which runs as the center of your smart home!
+
 #include <Arduino.h>
 
 class OpenHabHandler

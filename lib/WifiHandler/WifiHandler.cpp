@@ -14,8 +14,8 @@ static char currentPass[64];
 static int currentMode;
 
 static void copyWifiCredentials() {
-  strncpy( currentSSID, appcfg.wifi_ssid, 63 );
-  strncpy( currentPass, appcfg.wifi_password, 63 );
+  strncpy( currentSSID, appcfg.wifi_ssid, sizeof(currentSSID) );
+  strncpy( currentPass, appcfg.wifi_password, sizeof(currentPass) );
   currentMode = appcfg.wifi_mode;
 }
 

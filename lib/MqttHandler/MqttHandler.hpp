@@ -1,6 +1,9 @@
 #ifndef __MQTT_HANDLER_H__
 #define __MQTT_HANDLER_H__
 
+// http://mqtt.org/
+// MQTT is a machine-to-machine (M2M)/"Internet of Things" connectivity protocol.
+
 #include <Arduino.h>
 
 class MqttHandler {
