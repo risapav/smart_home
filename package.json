@@ -14,6 +14,7 @@
     "lint": "eslint app",
     "test": "echo test"
   },
+  "browserslist": "> 0.25%, not dead",
   "presets": [
     "@babel/preset-env"
   ],
@@ -27,7 +28,7 @@
     "babel-core": "^7.3.0",
     "babel-eslint": "latest",
     "babel-loader": "latest",
-    "babel-preset-es2015": "latest",
+    "babel-preset-env": "^1.7.0",
     "copy-webpack-plugin": "latest",
     "css-loader": "latest",
     "eslint": "latest",
