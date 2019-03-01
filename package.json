@@ -24,7 +24,7 @@
     "underscore": "~1.9.1"
   },
   "devDependencies": {
-    "babel-core": "^7.0.0",
+    "babel-core": "^7.3.0",
     "babel-eslint": "latest",
     "babel-loader": "latest",
     "babel-preset-es2015": "latest",
