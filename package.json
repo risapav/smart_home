@@ -1,0 +1,39 @@
+{
+  "name": "smart_home",
+  "description": "Description",
+  "author": "Pavol Risa",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "prebuild": "rm -rf ./public/",
+    "build": "npm run lint && webpack -p",
+    "lint": "eslint app",
+    "test": "echo test"
+  },
+  "dependencies": {
+    "backbone": "^1.4.0",
+    "backbone.marionette": "^4.4.0",
+    "jquery": "^3.3.1",
+    "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "babel-core": "latest",
+    "babel-eslint": "latest",
+    "babel-loader": "latest",
+    "babel-preset-es2015": "latest",
+    "copy-webpack-plugin": "latest",
+    "css-loader": "latest",
+    "eslint": "latest",
+    "extract-text-webpack-plugin": "latest",
+    "style-loader": "latest",
+    "stylus": "latest",
+    "underscore-template-loader": "latest",
+    "webpack": "latest",
+    "webpack-dev-server": "latest",
+    "webpack-merge": "latest"
+  }
+}

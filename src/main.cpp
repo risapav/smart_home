@@ -2,7 +2,7 @@
 #include <time.h>
 #include <App.hpp>
 #include <WifiHandler.hpp>
-#include <OtaHandler.hpp>
+//#include <OtaHandler.hpp>
 #include <WebHandler.hpp>
 #include <LocalTimeHandler.hpp>
 #include <DisplayHandler.hpp>
@@ -39,9 +39,9 @@ void loop() {
 
   if ( wifiHandler.handle( thisLoopTimestamp )) {
     localTimeHandler.handle();
-//    otaHandler.handle();
+    //otaHandler.handle();
     webHandler.handle();
-//    sht3xHandler.handle(thisLoopTimestamp);
+
     displayHandler.handle(thisLoopTimestamp, maxLoopTime );
   }
 
