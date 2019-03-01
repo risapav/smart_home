@@ -57,7 +57,7 @@ void WifiHandler::setup() {
     LOG0("Starting Wifi Access Point Mode\n");
 
     char buffer[64];
-    sprintf( buffer, DEFAULT_WIFI_SSID, ESP.getChipId());
+    sprintf( buffer, DEFAULT_WIFI_SSID );//, ESP.getChipId());
     strcpy( appcfg.wifi_ssid, buffer );
 
     copyWifiCredentials();

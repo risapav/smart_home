@@ -4,13 +4,75 @@
 #include <ESP8266mDNS.h>
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
+#include <AsyncJson.h>
+#include <ArduinoJson.h>
 #include <WifiHandler.hpp>
+
+
 #include "WebHandler.hpp"
-#include "WebHandlerPrivate.hpp"
+//#include "WebHandlerPrivate.hpp"
 
 WebHandler webHandler;
 
 static AsyncWebServer server(80);
+
+const int capacity=JSON_OBJECT_SIZE(12);
+StaticJsonBuffer<256> jsonBuffer;
+
+
+char json[] = "{"
+  "\"time\":\"1351824120\","
+  "\"c_garaz\":\"1\","
+  "\"c_svetlo\":\"0\","
+  "\"c_den_noc\":\"1\","
+  "\"c_rezerva\":\"0\","
+  "\"f_garaz\":\"1\","
+  "\"f_svetlo\":\"0\","
+  "\"f_den_noc\":\"1\","
+  "\"f_rezerva\":\"0\","
+  "\"f_temp1\":\"1.0\","
+  "\"f_temp2\":\"2.0\""
+  "}";
+
+JsonObject& object = jsonBuffer.parseObject(json);
+ // Parse the root object
+ //JsonObject &object = jsonBuffer.createObject();
+
+//object.set<long>("time", 1351824120);
+/*
+object.set(<char *>"time",<long> 1351824120);
+object.set<bool>("c_garaz", true);
+object.set<bool>("c_svetlo", true);
+object.set<bool>("c_den_noc", true);
+object.set<bool>("c_rezerva", true);
+object.set<bool>("c_rezerva", true);
+object.set<bool>("f_garaz", true);
+object.set<bool>("f_svetlo", true);
+object.set<bool>("f_den_noc", true);
+object.set<bool>("f_rezerva", true);
+object.set<float>("f_temp1", 2.0);
+object.set<float>("f_temp2", 1.0);
+*/
+
+static String doCommand() {
+  String message;
+  // Declare a buffer to hold the result
+  // Produce a minified JSON document
+  object.printTo(message);
+  object.printTo(Serial);
+
+  return message;
+}
+
+static String doFeedback() {
+  String message;
+  // Declare a buffer to hold the result
+  // Produce a minified JSON document
+  object.printTo(message);
+  object.printTo(Serial);
+
+  return message;
+}
 
 WebHandler::WebHandler()
 {
@@ -29,9 +91,9 @@ void WebHandler::setup()
     Dir dir = SPIFFS.openDir("/");
       while (dir.next()) {
         Serial.println("*****");
-          Serial.print(dir.fileName());
-          File f = dir.openFile("r");
-          Serial.println(f.size());
+        Serial.print(dir.fileName());
+        File f = dir.openFile("r");
+        Serial.println(f.size());
       }
   }
 
@@ -40,6 +102,31 @@ void WebHandler::setup()
   // Request to the root or none existing files will try to server the defualt
   // file name "index.htm" if exists
   server.serveStatic("/", SPIFFS, "/www/").setDefaultFile("index.html");
+
+  server.on("/cmd", HTTP_POST, [](AsyncWebServerRequest *request) {
+    AsyncWebServerResponse *response = request->beginResponse(200, "application/json", doCommand() );
+    response->addHeader( "Access-Control-Allow-Origin", "*" );
+    response->addHeader("Cache-Control", "no-cache");
+    request->send(response);
+  });
+  server.on("/fbk", HTTP_GET, [](AsyncWebServerRequest *request) {
+    AsyncWebServerResponse *response = request->beginResponse(200, "application/json", doFeedback() );
+    response->addHeader( "Access-Control-Allow-Origin", "*" );
+    response->addHeader("Cache-Control", "no-cache");
+    request->send(response);
+  });
+
+  server.on("/json", HTTP_ANY, [](AsyncWebServerRequest * request) {
+
+    AsyncJsonResponse * response = new AsyncJsonResponse();
+    JsonObject& root = response->getRoot();
+    root["key1"] = "key number one";
+    JsonObject& nested = root.createNestedObject("nested");
+    nested["key1"] = "key number one";
+
+    response->setLength();
+    request->send(response);
+  });
 
   server.onNotFound([](AsyncWebServerRequest *request){
     Serial.printf("NOT_FOUND: ");
@@ -119,29 +206,3 @@ void WebHandler::handle()
     setup();
   }
 }
-/*
-bool WebHandler::loadFromSpiffs(String path){
-  String dataType = "text/plain";
-  if(path.endsWith("/")) path += "index.htm";
-
-  if(path.endsWith(".src")) path = path.substring(0, path.lastIndexOf("."));
-  else if(path.endsWith(".html")) dataType = "text/html";
-  else if(path.endsWith(".htm")) dataType = "text/html";
-  else if(path.endsWith(".css")) dataType = "text/css";
-  else if(path.endsWith(".js")) dataType = "application/javascript";
-  else if(path.endsWith(".png")) dataType = "image/png";
-  else if(path.endsWith(".gif")) dataType = "image/gif";
-  else if(path.endsWith(".jpg")) dataType = "image/jpeg";
-  else if(path.endsWith(".ico")) dataType = "image/x-icon";
-  else if(path.endsWith(".xml")) dataType = "text/xml";
-  else if(path.endsWith(".pdf")) dataType = "application/pdf";
-  else if(path.endsWith(".zip")) dataType = "application/zip";
-  File dataFile = SPIFFS.open(path.c_str(), "r");
-  if (server.hasArg("download")) dataType = "application/octet-stream";
-  if (server.streamFile(dataFile, dataType) != dataFile.size()) {
-  }
-
-  dataFile.close();
-  return true;
-}
-*/

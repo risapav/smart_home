@@ -2,12 +2,9 @@
 #include <time.h>
 #include <App.hpp>
 #include <WifiHandler.hpp>
-//#include <OtaHandler.hpp>
+#include <OtaHandler.hpp>
 #include <WebHandler.hpp>
-//#include <MqttHandler.hpp>
 #include <LocalTimeHandler.hpp>
-//#include <SHT3xHandler.hpp>
-//#include <OpenHabHandler.hpp>
 #include <DisplayHandler.hpp>
 
 #include "configuration.h"
@@ -46,8 +43,6 @@ void loop() {
     webHandler.handle();
 //    sht3xHandler.handle(thisLoopTimestamp);
     displayHandler.handle(thisLoopTimestamp, maxLoopTime );
-//    openHabHandler.handle(thisLoopTimestamp);
-//    mqttHandler.handle(thisLoopTimestamp);
   }
 
   app.handle();

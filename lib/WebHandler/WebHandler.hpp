@@ -7,7 +7,7 @@ private:
   void setup();
 
 //
-  bool loadFromSpiffs(String path){};
+//  bool loadFromSpiffs(String path){};
 public:
   WebHandler();
 
