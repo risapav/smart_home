@@ -81,6 +81,8 @@ switch (process.env.npm_lifecycle_event) {
   default:
     module.exports = merge(webpackCommon, {
       devtool: 'source-map'
+	  
+
     });
     break;
 }

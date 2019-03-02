@@ -19,25 +19,35 @@
     "@babel/preset-env"
   ],
   "dependencies": {
-    "backbone.marionette": "^4.0.0",
+    "@babel/polyfill": "^7.2.5",
     "backbone": "~1.3.3",
+    "backbone.marionette": "^4.0.0",
+    "balanced-match": "^1.0.0",
     "jquery": "~3.3.1",
     "underscore": "~1.9.1"
   },
   "devDependencies": {
-    "babel-core": "^7.3.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-core": "latest",
     "babel-eslint": "latest",
     "babel-loader": "latest",
     "babel-preset-env": "^1.7.0",
     "copy-webpack-plugin": "latest",
     "css-loader": "latest",
     "eslint": "latest",
-    "extract-text-webpack-plugin": "latest",
     "style-loader": "latest",
     "stylus": "latest",
     "underscore-template-loader": "latest",
+    "extract-text-webpack-plugin": "latest",
     "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
     "webpack-dev-server": "latest",
     "webpack-merge": "latest"
-  }
+  },
+  "engines": {
+    "node": "latest"
+  },
+  "license": "MIT"
 }
